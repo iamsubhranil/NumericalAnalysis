@@ -42,15 +42,25 @@ double poly_eval(Poly * root, double value){
     return ret;
 }
 
+static void printTerm(double coeff, int exp){ 
+    printf("%g", coeff);
+    if(exp > 0){
+        printf("x");
+        if(exp > 1)
+            printf("%d", exp);
+    }
+}
+
 void poly_print(Poly * head){
     if(head==NULL){
         printf("0");
         return;
     }
-    printf("%fx%d ", head->coeff, head->exp);
+    printTerm(head->coeff, head->exp);
     head = head->next;
     while(head != NULL){
-        printf("+ %fx%d ", head->coeff, head->exp);
+        printf(" + ");
+        printTerm(head->coeff, head->exp);
         head = head->next;
     }
 }
@@ -66,14 +76,14 @@ static void addToList(Poly * *head, Poly * *prev, Poly * toAdd){
 
 Poly * poly_add(Poly * a, Poly * b){
     Poly * result = NULL, *prev = NULL;
-    
+
     if(a == NULL && b == NULL)
         return newPolynomial(0, 0);
     else if(a == NULL)
         return poly_dup(b);
     else if(b == NULL)
         return poly_dup(a);
- 
+
     while((a!=NULL && b!=NULL) && (a->exp != b->exp)){
         Poly * high;
         if(a->exp > b->exp){
@@ -114,7 +124,7 @@ Poly * poly_add(Poly * a, Poly * b){
 Poly * poly_multiply(Poly * a, Poly * b){
     if(a==NULL || b==NULL)
         return newPolynomial(0, 0);
-    
+
     if(b->next == NULL){
         Poly * ret = NULL;
         Poly * temp = NULL;
@@ -155,4 +165,11 @@ Polynomial combination(int r){
         t++;
     }
     return first;
+}
+
+Polynomial poly_pwrof(Polynomial a, int exp){
+    Polynomial result = newPolynomial(1, 0);
+    while(exp-->0)
+        result = poly_multiply(result, a);
+    return result;
 }
