@@ -164,7 +164,7 @@ long fact(long r){
     return r*fact(r-1);
 }
 
-Polynomial combination(int r){
+Polynomial poly_comb(int r){
     if(r==0)
         return newPolynomial(1, 0);
     Polynomial first = newPolynomial((double)1/fact(r), 1);
