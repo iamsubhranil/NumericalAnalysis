@@ -173,3 +173,16 @@ Polynomial poly_pwrof(Polynomial a, int exp){
         result = poly_multiply(result, a);
     return result;
 }
+
+Polynomial poly_replace(Polynomial old, Polynomial newP){
+    if(old == NULL || newP == NULL)
+        return NULL;
+
+    Polynomial result = newPolynomial(0, 0);
+
+    while(old != NULL){
+        result = poly_add(result, poly_multiply(newPolynomial(old->coeff, 0), poly_pwrof(newP, old->exp)));
+        old = old->next;
+    }
+    return result;
+}
