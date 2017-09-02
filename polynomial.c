@@ -43,7 +43,11 @@ double poly_eval(Poly * root, double value){
 }
 
 static void printTerm(double coeff, int exp){ 
-    printf("%g", coeff);
+    if(coeff == 0)
+        return;
+    
+    if(coeff != 1 || exp == 0)
+        printf("%g", coeff);
     if(exp > 0){
         printf("x");
         if(exp > 1)
@@ -57,10 +61,17 @@ void poly_print(Poly * head){
         return;
     }
     printTerm(head->coeff, head->exp);
+    Poly * prev = head;
     head = head->next;
     while(head != NULL){
-        printf(" + ");
-        printTerm(head->coeff, head->exp);
+        if(head->coeff < 0){
+            printf(" - ");
+        }
+        else if(head->coeff != 0){
+                printf(" + ");
+        }
+        printTerm(head->coeff < 0 ? -(head->coeff) : head->coeff, head->exp);
+        prev = head;
         head = head->next;
     }
 }
