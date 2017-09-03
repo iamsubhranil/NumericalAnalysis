@@ -1,9 +1,11 @@
 add_executable(difftest diff.c
-                        diff_driver.c)
+                        diff_driver.c
+                        input.c)
 
 add_executable(polytest polynomial.c
                         poly_driver.c)
 
 add_executable(coneq construct_eqn.c
+                        input.c
                         diff.c
                         polynomial.c)
