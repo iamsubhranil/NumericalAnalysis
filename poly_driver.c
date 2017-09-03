@@ -2,11 +2,11 @@
 #include <stdio.h>
 
 int main(){
-    Poly * p1 = newPolynomial(3, 1);
-    poly_concat(p1, newPolynomial(15, 0));
+    Poly * p1 = poly_new(3, 1);
+    poly_concat(p1, poly_new(15, 0));
 
-    Poly * p2 = newPolynomial(3, 1);
-    poly_concat(p2, newPolynomial(15, 0));
+    Poly * p2 = poly_new(3, 1);
+    poly_concat(p2, poly_new(15, 0));
 
     printf("\nPolynomial 1 : ");
     poly_print(p1);
@@ -24,8 +24,8 @@ int main(){
     printf("\np1^3 : ");
     poly_print(res);
     printf("\n");
-    Polynomial p = newPolynomial(3, 2);
-    poly_concat(p, newPolynomial(2, 1));
+    Polynomial p = poly_new(3, 2);
+    poly_concat(p, poly_new(2, 1));
     res = poly_replace(p1, p);
     printf("\nf(x) = ");
     poly_print(p1);

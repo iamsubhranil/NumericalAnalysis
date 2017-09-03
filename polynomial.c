@@ -1,7 +1,7 @@
 #include <malloc.h>
 #include "polynomial.h"
 
-Poly * newPolynomial(double coeff, int exp){
+Poly * poly_new(double coeff, int exp){
     Poly * p = (Poly *)malloc(sizeof(Poly));
     p->coeff = coeff;
     p->exp = exp;
@@ -10,7 +10,7 @@ Poly * newPolynomial(double coeff, int exp){
 }
 
 Poly * poly_dup(Poly * p){
-    return newPolynomial(p->coeff, p->exp);
+    return poly_new(p->coeff, p->exp);
 }
 
 void poly_concat(Poly * root, Poly * newP){
@@ -89,7 +89,7 @@ Poly * poly_add(Poly * a, Poly * b){
     Poly * result = NULL, *prev = NULL;
 
     if(a == NULL && b == NULL)
-        return newPolynomial(0, 0);
+        return poly_new(0, 0);
     else if(a == NULL)
         return poly_dup(b);
     else if(b == NULL)
@@ -112,7 +112,7 @@ Poly * poly_add(Poly * a, Poly * b){
 
     }
     while(a!=NULL && b!=NULL){
-        Poly * newP = newPolynomial(a->coeff + b->coeff, a->exp);
+        Poly * newP = poly_new(a->coeff + b->coeff, a->exp);
         addToList(&result, &prev, newP);
         a = a->next;
         b = b->next;
@@ -134,19 +134,19 @@ Poly * poly_add(Poly * a, Poly * b){
 
 Poly * poly_multiply(Poly * a, Poly * b){
     if(a==NULL || b==NULL)
-        return newPolynomial(0, 0);
+        return poly_new(0, 0);
 
     if(b->next == NULL){
         Poly * ret = NULL;
         Poly * temp = NULL;
         while(a!=NULL){
-            addToList(&ret, &temp, newPolynomial(a->coeff * b->coeff, a->exp + b->exp));
+            addToList(&ret, &temp, poly_new(a->coeff * b->coeff, a->exp + b->exp));
             a = a->next;
         }
         return ret;
     }
     else{
-        Poly * result = newPolynomial(0, 0);
+        Poly * result = poly_new(0, 0);
         while(b != NULL){
             Poly * tmp = poly_dup(b);
             tmp->next = NULL;
@@ -166,12 +166,12 @@ long fact(long r){
 
 Polynomial poly_comb(int r){
     if(r==0)
-        return newPolynomial(1, 0);
-    Polynomial first = newPolynomial((double)1/fact(r), 1);
+        return poly_new(1, 0);
+    Polynomial first = poly_new((double)1/fact(r), 1);
     int t = 1;
     while(t < r){
-        Polynomial n = newPolynomial(1, 1);
-        poly_concat(n, newPolynomial(-t, 0));
+        Polynomial n = poly_new(1, 1);
+        poly_concat(n, poly_new(-t, 0));
         first = poly_multiply(first, n);
         t++;
     }
@@ -179,7 +179,7 @@ Polynomial poly_comb(int r){
 }
 
 Polynomial poly_pwrof(Polynomial a, int exp){
-    Polynomial result = newPolynomial(1, 0);
+    Polynomial result = poly_new(1, 0);
     while(exp-->0)
         result = poly_multiply(result, a);
     return result;
@@ -189,10 +189,10 @@ Polynomial poly_replace(Polynomial old, Polynomial newP){
     if(old == NULL || newP == NULL)
         return NULL;
 
-    Polynomial result = newPolynomial(0, 0);
+    Polynomial result = poly_new(0, 0);
 
     while(old != NULL){
-        result = poly_add(result, poly_multiply(newPolynomial(old->coeff, 0), poly_pwrof(newP, old->exp)));
+        result = poly_add(result, poly_multiply(poly_new(old->coeff, 0), poly_pwrof(newP, old->exp)));
         old = old->next;
     }
     return result;
