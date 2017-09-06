@@ -9,3 +9,8 @@ add_executable(coneq construct_eqn.c
                         input.c
                         diff.c
                         polynomial.c)
+
+add_executable(finter finterpolation.c
+                        input.c
+                        diff.c
+                        polynomial.c)
