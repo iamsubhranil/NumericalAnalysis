@@ -6,16 +6,14 @@
 #include "input.h"
 
 int main(){
-    
+
     double ** input = takeInput();
     if(input == NULL)
         return 1;
-    
+
     int count = (int)input[2][0];
     double *arguments = input[0];
     double *entries = input[1];
-
-    char einput[100], *rem;
 
     double h = arguments[1] - arguments[0];
     Polynomial n = poly_new((double)1/h, 1);
@@ -35,33 +33,10 @@ int main(){
     printf("\nGenerated equation from the given dataset is : ");
     poly_print(result);
 
-    while(1){
-        printf("\nEnter the value of x : ");
-        scanf("%s", einput);
-        rem = NULL;
-        double v = strtold(einput, &rem);
-        if(strlen(rem) > 0){
-            printf("\n[Error] Not a valid numeric value : %s", einput);
-            continue;
-        }
-        if(v < arguments[0] || v > arguments[count - 1]){
-            printf("\n[Error] Value of x must be interpolated between %g and %g!", arguments[0], arguments[count -1]);
-            continue;
-        }
-        int temp = 0;
-        while(temp < count){
-            if(arguments[temp] == v){
-                printf("\n[Error] Value of x must be non-tabulated!");
-                break;
-            }
-            temp++;
-        }
-        if(temp != count)
-            continue;
+    double v = getInterpolatedValue(arguments, count);
 
-        double res = poly_eval(result, v);
-        printf("\nf(%g) = %g\n", v, res);
-        break;
-    }
+    double res = poly_eval(result, v);
+    printf("\nf(%g) = %g\n", v, res);
+
     return 0;
 }
