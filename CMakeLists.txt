@@ -14,3 +14,8 @@ add_executable(finter finterpolation.c
                         input.c
                         diff.c
                         polynomial.c)
+
+add_executable(binter binterpolation.c
+                        input.c
+                        diff.c
+                        polynomial.c)
