@@ -58,7 +58,24 @@ double ** takeInput(){
     return argentry;
 }
 
-double getInterpolatedValue(double *arguments, int count){
+static int checkMode(double *arguments, int count, double value){
+    double diff = arguments[count - 1] - arguments[0];
+    double front = (diff * 0.4) + arguments[0];
+    double med_start = (diff * 0.41) + arguments[0];
+    double med_end = (diff * 0.59) + arguments[0];
+    double rear = (diff * 0.60) + arguments[0];
+    
+    if(value <= front)
+        return 1;
+    else if(value >= med_start && value <= med_end)
+        return 3;
+    else if(value >= rear)
+        return 2;
+
+    return 0;
+}
+
+double getInterpolatedValue(double *arguments, int count, int mode){
     char *rem, einput[100];
     double value = 0;
     while(1){
@@ -84,6 +101,16 @@ double getInterpolatedValue(double *arguments, int count){
         }
         if(temp != count)
             continue;
+
+        if((mode >= 1 && mode <=3) && (checkMode(arguments, count, value) != mode)){
+            printf("\n[Error] Value of x does not lie near the %s of the argument table!",
+                    mode == 1? "start":
+                    mode == 2? "end":
+                    "middle");
+            continue;
+        }
+
+        break;
     }
     return value;
 }

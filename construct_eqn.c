@@ -33,7 +33,7 @@ int main(){
     printf("\nGenerated equation from the given dataset is : ");
     poly_print(result);
 
-    double v = getInterpolatedValue(arguments, count);
+    double v = getInterpolatedValue(arguments, count, 0);
 
     double res = poly_eval(result, v);
     printf("\nf(%g) = %g\n", v, res);
