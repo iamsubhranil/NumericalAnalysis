@@ -6,7 +6,8 @@
 #include "input.h"
 
 int main(){
-
+    printf("\nEquation approximation");
+    printf("\n======================\n");
     double ** input = takeInput();
     if(input == NULL)
         return 1;
