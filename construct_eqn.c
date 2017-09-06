@@ -8,7 +8,7 @@
 int main(){
     printf("\nEquation approximation");
     printf("\n======================\n");
-    double ** input = takeInput();
+    double ** input = takeInput(1);
     if(input == NULL)
         return 1;
 

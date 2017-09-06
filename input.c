@@ -15,7 +15,7 @@ int checkDiff(double *arguments, int length){
     return 0;
 }
 
-double ** takeInput(){
+double ** takeInput(int eqd){
     double *entries = NULL, *arguments = NULL;
     int count  = 0;
     char ainput[100], einput[100], *rem;
@@ -46,7 +46,7 @@ double ** takeInput(){
         printf("\n[Error] Please enter atleast 3 argument entry pair!");
         return NULL;
     }
-    if(checkDiff(arguments, count)){
+    if(eqd && checkDiff(arguments, count)){
         printf("\n[Error] Please enter equidistant arguments!\n");
         return NULL;
     }

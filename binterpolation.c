@@ -12,7 +12,7 @@ static long fact(int i){
 int main(){
     printf("\nNewton's Backward Interpolation");
     printf("\n==============================\n");
-    double ** input = takeInput();
+    double ** input = takeInput(1);
     if(input == NULL)
         return 1;
 

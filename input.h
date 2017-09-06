@@ -1,7 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-double ** takeInput();
+// Specify if equidistant arguments are required
+double ** takeInput(int eqd);
 
 // Mode 1 : Take value toward the front of the argument table
 // Mode 2 :  ""    ""    ""    ""  rear "" ""     ""      ""

@@ -5,8 +5,8 @@ int main(){
     Poly * p1 = poly_new(3, 1);
     poly_concat(p1, poly_new(15, 0));
 
-    Poly * p2 = poly_new(3, 1);
-    poly_concat(p2, poly_new(15, 0));
+    Poly * p2 = poly_new(-3, 0);
+//    poly_concat(p2, poly_new(15, 0));
 
     printf("\nPolynomial 1 : ");
     poly_print(p1);

@@ -5,7 +5,7 @@
 #include "input.h"
 
 int main(){
-    double ** input = takeInput();
+    double ** input = takeInput(1);
     if(input==NULL)
         return 1;
     double * entries = input[1], **fdiff;
