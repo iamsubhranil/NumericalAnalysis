@@ -2,10 +2,10 @@
 #include <stdio.h>
 
 int main(){
-    Poly * p1 = poly_new(3, 1);
+    Polynomial p1 = poly_new(3, 1);
     poly_concat(p1, poly_new(15, 0));
 
-    Poly * p2 = poly_new(-3, 0);
+    Polynomial p2 = poly_new(-3, 0);
 //    poly_concat(p2, poly_new(15, 0));
 
     printf("\nPolynomial 1 : ");
@@ -13,10 +13,10 @@ int main(){
     printf("\nPolynomial 2 : ");
     poly_print(p2);
 
-    Poly * added = poly_add(p1, p2);
+    Polynomial added = poly_add(p1, p2);
     printf("\np1 + p2 : ");
     poly_print(added);
-    Poly * muld = poly_multiply(p1, p2);
+    Polynomial muld = poly_multiply(p1, p2);
     printf("\np1 * p2 : ");
     poly_print(muld);
     printf("\n");

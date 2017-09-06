@@ -1,12 +1,7 @@
 #ifndef POLYNOMIAL_H
 #define POLYNOMIAL_H
 
-typedef struct Poly{
-    double coeff;
-    int exp;
-    struct Poly *next;
-} Poly;
-typedef Poly* Polynomial;
+typedef struct Poly* Polynomial;
 
 Polynomial poly_add(Polynomial a, Polynomial b); // Adds two polynomials
 Polynomial poly_multiply(Polynomial a, Polynomial b); // Multiplies two polynomials
