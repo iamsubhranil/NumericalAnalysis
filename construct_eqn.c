@@ -1,8 +1,6 @@
 #include "polynomial.h"
 #include "diff.h"
-#include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include "input.h"
 
 int main(){

@@ -78,11 +78,9 @@ void poly_print(struct Poly * head){
     }
     int isfirst = 1;
     printTerm(head->coeff, head->exp, &isfirst);
-    struct Poly * prev = head;
     head = head->next;
     while(head != NULL){
         printTerm(head->coeff, head->exp, &isfirst);
-        prev = head;
         head = head->next;
     }
 }
