@@ -4,6 +4,9 @@
 #include <stdio.h>
 
 int main(){
+    printf("\nLagrange's Inerpolation");
+    printf("\n=======================\n");
+
     double ** table = takeInput(0);
     if(table == NULL)
         return 1;
