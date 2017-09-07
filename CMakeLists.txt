@@ -19,3 +19,8 @@ add_executable(binter binterpolation.c
                         input.c
                         diff.c
                         polynomial.c)
+
+add_executable(linter lagrange.c
+                        input.c
+                        polynomial.c
+                        fraction.c)
