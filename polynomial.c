@@ -207,3 +207,7 @@ struct Poly * poly_replace(struct Poly * old, struct Poly * newP){
     }
     return result;
 }
+
+struct Poly * poly_constant(double value){
+    return poly_new(value, 0);
+}
