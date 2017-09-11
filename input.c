@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "input.h"
 
 int checkDiff(double *arguments, int length){
@@ -8,7 +9,7 @@ int checkDiff(double *arguments, int length){
     int temp = 2;
     while(temp < length){
         ncd = arguments[temp] - arguments[temp - 1];
-        if(ncd != cd)
+        if(fabs(ncd-cd) > 0.00000000001)
             return 1;
         temp++;
     }
