@@ -14,5 +14,6 @@ Polynomial poly_comb(int r); // Generates an nCr polynomial based on the given r
 Polynomial poly_pwrof(Polynomial a, int exp); // Generates a to the power n form of the given polynomial, raised till exp
 Polynomial poly_replace(Polynomial a, Polynomial b); // Replace `x` of each term of a with b
 Polynomial poly_constant(double value); // Generates a new polynomial with exponent of 0 and the given coefficient
+Polynomial poly_parse(char *input, char var); // Generates a polynomial object from a string of type : Coeff1(var)Exp1 (+/-) Coeff2(var)Exp2 ...
 
 #endif

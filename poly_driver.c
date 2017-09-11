@@ -1,4 +1,5 @@
 #include "polynomial.h"
+#include "utility.h"
 #include <stdio.h>
 
 int main(){
@@ -33,6 +34,14 @@ int main(){
     poly_print(p);
     printf("\nf(3x + 2) = ");
     poly_print(res);
+
+    printf("\nEnter a polynomial : ");
+    char *line = NULL;
+    readline(&line, stdin);
+    Polynomial convert = poly_parse(line, 'x');
+    printf("\nParsed polynomial is : ");
+    poly_print(convert);
+
     printf("\n");
     return 0;
 }

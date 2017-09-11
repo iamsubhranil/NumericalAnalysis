@@ -3,7 +3,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/out/bin)
 
 add_library(input STATIC input.c)
 add_library(diff STATIC diff.c)
+add_library(utility STATIC utility.c)
 add_library(polynomial STATIC polynomial.c)
+target_link_libraries(polynomial utility)
 add_library(fraction STATIC fraction.c)
 
 add_executable(difftest diff_driver.c)

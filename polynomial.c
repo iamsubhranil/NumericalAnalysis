@@ -1,5 +1,8 @@
 #include <malloc.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "utility.h"
 #include "polynomial.h"
 
 struct Poly{
@@ -21,13 +24,21 @@ struct Poly * poly_dup(struct Poly * p){
 }
 
 void poly_concat(struct Poly * root, struct Poly * newP){
-    while(root->next!=NULL && root->exp > newP->exp)
-        root = root->next;
-    if(root->exp == newP->exp)
-        root->coeff += newP->coeff;
+    if(newP->exp > root->exp){
+        struct Poly * backup = poly_dup(root);
+        root->exp = newP->exp;
+        root->coeff = newP->coeff;
+        poly_concat(root, backup);
+    }
     else{
-        newP->next = root->next;
-        root->next = newP;
+        while(root->next!=NULL && root->exp > newP->exp)
+            root = root->next;
+        if(root->exp == newP->exp)
+            root->coeff += newP->coeff;
+        else{
+            newP->next = root->next;
+            root->next = newP;
+        }
     }
 }
 
@@ -209,4 +220,85 @@ struct Poly * poly_replace(struct Poly * old, struct Poly * newP){
 
 struct Poly * poly_constant(double value){
     return poly_new(value, 0);
+}
+
+int isnm(char c){
+    return (c>='0' && c<='9') || c=='.';
+}
+
+struct Poly * poly_parse(char *input, char var){
+    struct Poly * ret = NULL;
+    size_t len = strlen(input), i = 0, pointer = 0;
+    char *buffer = NULL, *rem = NULL;
+    double coeff = 0;
+    int exp = 0, inexp = 0;
+    while(i < len){
+        char c = input[i];
+        if(isnm(c)){
+            buffer = addToBuffer(buffer, &pointer, c);
+        }
+        else if(c == var){
+            if(buffer == NULL)
+                coeff = 1;
+            else{
+                buffer = addToBuffer(buffer, &pointer, '\0');
+                coeff = strtold(buffer, &rem);
+                if(strlen(rem) > 0){
+                    return NULL;
+                }
+                buffer = NULL;
+                pointer = 0;
+            }
+            inexp = 1;
+        }
+        else if(c == '+' || c=='-'){
+            if(buffer == NULL)
+                exp = 1;
+            else{
+                buffer = addToBuffer(buffer, &pointer, '\0');
+                exp = strtoll(buffer, &rem, 10);
+                if(strlen(rem) > 0)
+                    return NULL;
+            }
+            struct Poly * np = poly_new(coeff, exp);
+            if(ret == NULL)
+                ret = np;
+            else
+                poly_concat(ret, np);
+
+            buffer = NULL;
+            pointer = 0;
+            buffer = addToBuffer(buffer, &pointer, c);
+            inexp = 0;
+        }
+        else if(c != ' '){
+            return NULL;
+        }
+
+        i++;
+    }
+    if(buffer != NULL){
+        double temp = strtoll(buffer, &rem, 10);
+        if(strlen(rem) > 0)
+            return NULL;
+        if(inexp)
+            exp = temp;
+        else{
+            coeff = temp;
+            exp = 0;
+        }
+        struct Poly * np = poly_new(coeff, exp);
+        if(ret == NULL)
+            ret = np;
+        else
+            poly_concat(ret, np);
+    }
+    else if(inexp){
+        struct Poly *np = poly_new(coeff, 1);
+        if(ret == NULL)
+            ret = np;
+        else
+            poly_concat(ret, np);
+    }
+    return ret;
 }
