@@ -34,3 +34,15 @@ add_executable(linter lagrange.c)
 target_link_libraries(linter input
                              polynomial
                              fraction)
+
+add_executable(gausselimination gausselimination.c)
+target_link_libraries(gausselimination m)
+
+add_executable(gaussjordan gaussjordan.c)
+target_link_libraries(gaussjordan m)
+
+add_executable(gaussseidel gaussseidel.c)
+target_link_libraries(gaussseidel m)
+
+add_executable(gaussjacobi gaussjacobi.c)
+target_link_libraries(gaussjacobi m)
