@@ -1,5 +1,6 @@
-#include"utility.h"
-#include<stdlib.h>
+#include "utility.h"
+#include <stdlib.h>
+#include <string.h>
 
 /*
  * Adds the given character to the buffer. Since it modifies
