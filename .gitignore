@@ -1,0 +1,4 @@
+*.out
+build/*
+git-daemon-export-ok
+description
